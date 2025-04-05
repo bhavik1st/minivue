@@ -1,17 +1,13 @@
 # MiniVue - v0.02
-MiniVue is Simple, Slim, Minimal, Light JS library inspired from Vue.js and Alpine.js
-
-A lightweight, reactive JavaScript framework inspired by Vue.js. MiniVue provides the core reactivity features of Vue with a simple and intuitive API making is easier for non-ui devs and noobs to pick up.
-
-Simple, Slim, Minimal, Light JS library inspired from Vue.js and Alpine.js
-PreCursorto having same in Python pyvue
-
-
 <!-- 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg) -->
 
 
+MiniVue is simple, slim JS UI framework inspired from Vue.js and Alpine.js
+A lightweight, reactive MiniVue provides the core reactivity features of Vue with a simple and intuitive API of Alpine making is easier for beginners and non-ui devs to get the job done.
+
+NOTE: Python pyvue is also in the making
 
 ## Features
 
