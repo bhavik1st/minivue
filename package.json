@@ -1,0 +1,40 @@
+{
+    "name": "minivue",
+    "version": "1.0.0",
+    "description": "A lightweight, reactive JavaScript framework inspired by Vue.js",
+    "main": "dist/minivue.js",
+    "module": "dist/minivue.esm.js",
+    "exports": {
+        ".": {
+            "import": "./dist/minivue.esm.js",
+            "require": "./dist/minivue.js"
+        }
+    },
+    "scripts": {
+        "test": "mocha tests/test-runner.js",
+        "test:watch": "mocha tests/test-runner.js --watch",
+        "clean": "rm -rf dist && mkdir dist",
+        "build": "npm run clean && npm run build:js && npm run build:min && npm run build:esm",
+        "build:js": "vite build --emptyOutDir false --outDir dist --config vite.build.js",
+        "build:min": "vite build --emptyOutDir false --outDir dist --config vite.build.min.js",
+        "build:esm": "vite build --emptyOutDir false --outDir dist --config vite.build.esm.js",
+        "devtest": "vite --config vite.dev.js"
+    },
+    "keywords": [
+        "vue",
+        "minivue",
+        "javascript",
+        "framework",
+        "reactive",
+        "minivue",
+        "mue"
+    ],
+    "author": "Bhavik Shah <bhavik.shah@gmail.com>",
+    "license": "MIT",
+    "devDependencies": {
+        "jsdom": "^21.1.0",
+        "mocha": "^10.2.0",
+        "vite": "^5.4.16",
+        "terser": "^5.39.0"
+    }
+}
