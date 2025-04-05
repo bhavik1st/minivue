@@ -26,6 +26,7 @@ NOTE: Python pyvue is also in the making
 - **List Rendering** - Efficiently render lists with the m-for directive
 
 ## Getting Started
+![MiniVue Logo](src/image.png)
 
 ### Installation
 
