@@ -137,6 +137,36 @@
       align-items: center;
       margin-top: 15px;
     }
+    .ref-example {
+      margin-bottom: 30px;
+      padding: 15px;
+      border: 1px solid #eee;
+      border-radius: 4px;
+    }
+    .demo-box {
+      margin: 15px 0;
+      padding: 15px;
+      background: #f9f9f9;
+      border-radius: 4px;
+    }
+    .ref-list-item {
+      padding: 8px;
+      margin: 4px 0;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    .ref-panel {
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      transition: all 0.3s ease;
+    }
+    .ref-panel.active {
+      background: #e6ffe6;
+      border-color: #42b883;
+    }
   </style>
 </head>
 <body>
@@ -158,9 +188,10 @@
       <h2>Attribute Binding</h2>
       
       <h3>Input Placeholders</h3>
+      <label for="placeholderEdit">Using m-bind:placeholder</label>
       <input type="text" m-bind:placeholder="inputPlaceholder">
-      <input type="text" m-bind:placeholder="inputPlaceholder + ' (shorthand)'">
-      
+      <label for="placeholderEdit">Using :placeholder</label>
+      <input type="text" :placeholder="inputPlaceholder">
       <div style="margin-top: 15px;">
         <label for="placeholderEdit">Change placeholder:</label>
         <input type="text" id="placeholderEdit" m-model="inputPlaceholder">
@@ -175,7 +206,7 @@
         
         <div style="margin-top: 10px;">
           <button m-bind:disabled="isDisabled">Regular Button (m-bind)</button>
-          <button m-bind:disabled="isDisabled">Shorthand Button</button>
+          <button :disabled="isDisabled">Shorthand Button</button>
         </div>
       </div>
       
@@ -300,6 +331,62 @@
       <textarea m-model="message" placeholder="Type something..."></textarea>
       <button @click="clearMessage">Clear</button>
     </div>
+
+    <div class="card">
+      <h2>m-ref Examples</h2>
+      <p class="description">The m-ref directive allows you to directly reference DOM elements in your MiniVue application.</p>
+      
+      <div class="ref-example">
+        <h3>1. Input Focus Management</h3>
+        <div class="demo-box">
+          <input type="text" m-ref="focusInput" placeholder="This input can be focused">
+          <button @click="focusReferencedInput">Focus Input</button>
+          <button @click="clearReferencedInput">Clear Input</button>
+          <button x-on:click="navigator.clipboard.writeText(this.$refs.focusInput.value)">
+            Copy to clipboard (using $refs)
+          </button>
+        </div>
+      </div>
+
+      <div class="ref-example">
+        <h3>2. Form Validation</h3>
+        <div class="demo-box">
+          <form m-ref="validationForm">
+            <input type="text" m-model="formData.name" placeholder="Name">
+            <input type="email" m-model="formData.email" placeholder="Email">
+            <button type="button" @click="validateFormFields">Validate Form</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="ref-example">
+        <h3>3. List Item References</h3>
+        <div class="demo-box">
+          <div class="list-controls">
+            <button @click="addRefListItem">Add Item</button>
+            <button @click="toggleRefListItems">Toggle Items</button>
+          </div>
+          <div class="ref-list">
+            <div m-for="item in refListItems" 
+                 m-ref="refListElements" 
+                 class="ref-list-item">
+              {{ item }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ref-example">
+        <h3>4. Component References</h3>
+        <div class="demo-box">
+          <div m-ref="mainPanel" class="ref-panel">
+            <h4>Main Panel</h4>
+            <p>This panel can be manipulated via reference</p>
+          </div>
+          <button @click="toggleRefPanel">Toggle Panel Style</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <hr>
@@ -326,7 +413,11 @@
       
       <div class="todo-info">
         <!-- TODO: Use computed property -->
-        <p>Remaining tasks: {{ todos.length }}</p>
+        <!-- This is not working because 'remaining' is not properly set up as a computed property.
+             MiniVue needs computed properties to be defined in the computed section of the options.
+             Also, we need to make sure the todos array is being tracked for reactivity. -->
+        <p>Remaining tasks: {{ getRemainingTasks() }}</p>
+        <!-- Alternative approach: define 'remaining' in the computed section of the MiniVue instance -->
         <button @click="clearCompleted" class="btn btn-small">Clear Completed</button>
       </div>
     </div>
@@ -355,7 +446,12 @@
         borderColor: '#42b883',
         borderStyle: { 'border-color': '#42b883' },
         linkUrl: 'https://github.com',
-        inputValue: 50
+        inputValue: 50,
+        formData: {
+          name: '',
+          email: ''
+        },
+        refListItems: ['Item 1', 'Item 2', 'Item 3']
       },
       methods: {
         // Basic counter methods
@@ -413,6 +509,57 @@
           this.borderColor = this.borderColor;
           // Also update DOM directly to ensure it works
           document.querySelector('.dynamic-border').style.borderColor = this.borderColor;
+        },
+        focusReferencedInput() {
+          const input = this.$refs.focusInput;
+          if (input) {
+            input.focus();
+            input.style.borderColor = '#42b800';
+            setTimeout(() => {
+              input.style.borderColor = '';
+            }, 1000);
+          }
+        },
+        clearReferencedInput() {
+          const input = this.$refs.focusInput;
+          if (input) {
+            input.value = '';
+          }
+        },
+        validateFormFields() {
+          const form = this.$refs.validationForm;
+          const inputs = form.querySelectorAll('input');
+          let isValid = true;
+
+          inputs.forEach(input => {
+            if (!input.value) {
+              input.style.borderColor = 'red';
+              isValid = false;
+            } else {
+              input.style.borderColor = '';
+            }
+          });
+
+          if (isValid) {
+            console.log('Form is valid:', this.formData);
+          }
+        },
+        addRefListItem() {
+          this.refListItems.push(`Item ${this.refListItems.length + 1}`);
+        },
+        toggleRefListItems() {
+          const items = this.$refs.refListElements;
+          if (items && items.length) {
+            items.forEach((item, index) => {
+              item.style.backgroundColor = index % 2 === 0 ? '#f0f0f0' : '#ffffff';
+            });
+          }
+        },
+        toggleRefPanel() {
+          const panel = this.$refs.mainPanel;
+          if (panel) {
+            panel.classList.toggle('active');
+          }
         }
       }
     });
@@ -433,16 +580,16 @@
         ],
         newTodo: ''
       },
-      // computed: {
-      //   remaining() {
-      //    //return this.todos.filter(todo => !todo.completed).length;
-      //    return 0;
-      //   }
-      // },
-      methods: {
+      computed: {
         remaining() {
-          return this.todos.length;
-        },
+         //return this.todos.filter(todo => !todo.completed).length;
+         return 0;
+        }
+      },
+      methods: {
+        // remaining() {
+        //   return this.todos.length;
+        // },
         addTodo() {
           if (!this.newTodo.trim()) return;
           this.todos.push({

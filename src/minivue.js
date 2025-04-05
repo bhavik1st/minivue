@@ -1,7 +1,8 @@
 // MiniVue - A minimal Vue-inspired JavaScript framework
-const PREFIX = 'm-';
+const VALID_PREFIX = 'm-';
 const VALID_DIRECTIVES = ['model', 'if', 'for', 'bind', 'on'];
 const VALID_EVENTS = ['click', 'change', 'input', 'submit', 'keydown', 'keyup', 'mouseover', 'mouseout', 'mousemove', 'mouseenter', 'mouseleave'];
+
 class MiniVue {
   constructor(options) {
     this.$options = options || {};
@@ -10,6 +11,7 @@ class MiniVue {
       ? document.querySelector(options.el) 
       : options.el;
     this.debug = options.debug || false;
+    this.$refs = {}; // Initialize $refs object
     
     try {
       this.log('Initializing MiniVue instance');
@@ -257,6 +259,11 @@ class MiniVue {
             // Handle m-if directive
             else if (directive === 'if') {
               this._bindIfDirective(node, value);
+            }
+            
+            // Handle m-ref directive
+            else if (directive === 'ref') {
+              this._bindRefDirective(node, value);
             }
             
             // Handle m-bind directive
@@ -907,6 +914,11 @@ class MiniVue {
                 this._bindIfInForItem(node, value);
               }
               
+              // Handle m-ref directive
+              else if (directive === 'ref') {
+                this._bindRefInForItem(node, value);
+              }
+              
               // Handle m-bind directive
               else if (directive.startsWith('bind:')) {
                 const attrToBind = directive.slice(5);
@@ -1231,6 +1243,41 @@ class MiniVue {
       }
     } catch (error) {
       console.error('[MiniVue] Error binding m-model in m-for item:', error);
+    }
+  }
+
+  // Handle m-ref directive binding
+  _bindRefDirective(node, refName) {
+    try {
+      this.log(`Binding m-ref for ${refName}`);
+      
+      // Store the reference in $refs
+      this.$refs[refName] = node;
+      
+      // Remove the m-ref attribute from the DOM
+      node.removeAttribute('m-ref');
+    } catch (error) {
+      console.error('[MiniVue] Error binding m-ref:', error);
+    }
+  }
+
+  // Handle m-ref directive binding within m-for
+  _bindRefInForItem(node, refName) {
+    try {
+      this.log(`Binding m-ref in m-for for ${refName}`);
+      
+      // Create an array to store references if it doesn't exist
+      if (!this.$refs[refName]) {
+        this.$refs[refName] = [];
+      }
+      
+      // Add the reference to the array
+      this.$refs[refName].push(node);
+      
+      // Remove the m-ref attribute from the DOM
+      node.removeAttribute('m-ref');
+    } catch (error) {
+      console.error('[MiniVue] Error binding m-ref in m-for:', error);
     }
   }
 }
