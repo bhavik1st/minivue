@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MiniVue Examples</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .example-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group input {
+            padding: 8px;
+            margin-right: 10px;
+        }
+        .todo-list {
+            margin-bottom: 20px;
+        }
+        .todo-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .todo-item span {
+            margin: 0 10px;
+            flex-grow: 1;
+        }
+        .completed {
+            text-decoration: line-through;
+            color: #888;
+        }
+        .ref-demo {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .message-box {
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        button {
+            padding: 8px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .ref-patterns {
+            display: grid;
+            gap: 20px;
+        }
+        .pattern-demo {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .pattern-demo input {
+            padding: 8px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        .list-controls {
+            margin-bottom: 15px;
+        }
+        .list-item {
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #eee;
+            border-radius: 4px;
+        }
+        .list-item.highlighted {
+            background-color: #e6ffe6;
+        }
+        .component {
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .component button {
+            margin-top: 10px;
+        }
+        .section-description {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        .ref-examples {
+            display: grid;
+            gap: 30px;
+        }
+        .ref-example {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 20px;
+            background: #fff;
+        }
+        .example-box {
+            margin-top: 15px;
+        }
+        .demo-container {
+            margin: 15px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: #f9f9f9;
+        }
+        .code-example {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            margin-top: 10px;
+        }
+        .ref-list-item {
+            padding: 8px;
+            margin: 4px 0;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .ref-panel {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+        .ref-panel.active {
+            background: #e6ffe6;
+            border-color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="example-section">
+            <h2>MiniVue m-ref Example</h2>
+            
+            <div class="example-container">
+                <h3>Todo List with References</h3>
+                <div class="input-group">
+                    <input type="text" m-model="newTodo" placeholder="Add a new todo">
+                    <button @click="addTodo">Add</button>
+                </div>
+                
+                <div class="todo-list">
+                    <div m-for="todo in todos" class="todo-item" m-ref="todoItems">
+                        <input type="checkbox" m-model="todo.completed">
+                        <span :class="{'completed': todo.completed}">{{ todo.text }}</span>
+                        <button @click="removeTodo(todo)">Delete</button>
+                    </div>
+                </div>
+
+                <div class="ref-demo">
+                    <h4>Reference Demo</h4>
+                    <div m-ref="messageBox" class="message-box">
+                        This is a referenced element
+                    </div>
+                    <button @click="showRefs">Show References Info</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="example-section">
+            <h2>m-ref Patterns and Examples</h2>
+            
+            <div class="ref-patterns">
+                <h3>1. Basic Element Reference</h3>
+                <div class="pattern-demo">
+                    <input type="text" m-model="inputText" m-ref="textInput" placeholder="Type something...">
+                    <button @click="focusInput">Focus Input</button>
+                    <button @click="clearInput">Clear Input</button>
+                </div>
+
+                <h3>2. Form References</h3>
+                <div class="pattern-demo">
+                    <form m-ref="demoForm">
+                        <input type="text" m-model="formData.name" placeholder="Name">
+                        <input type="email" m-model="formData.email" placeholder="Email">
+                        <button type="button" @click="validateForm">Validate Form</button>
+                    </form>
+                </div>
+
+                <h3>3. Dynamic References in Lists</h3>
+                <div class="pattern-demo">
+                    <div class="list-controls">
+                        <button @click="addListItem">Add Item</button>
+                        <button @click="highlightItems">Highlight Items</button>
+                    </div>
+                    <div class="dynamic-list">
+                        <div m-for="item in listItems" 
+                             class="list-item" 
+                             m-ref="listItems"
+                             :class="{'highlighted': item.highlighted}">
+                            {{ item.text }}
+                        </div>
+                    </div>
+                </div>
+
+                <h3>4. Component References</h3>
+                <div class="pattern-demo">
+                    <div class="component-refs">
+                        <div m-ref="header" class="component">
+                            <h4>Header Component</h4>
+                            <button @click="updateHeader">Update Header</button>
+                        </div>
+                        <div m-ref="content" class="component">
+                            <h4>Content Component</h4>
+                            <button @click="updateContent">Update Content</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="example-section">
+            <h2>m-ref Directive Examples</h2>
+            <p class="section-description">
+                The m-ref directive allows you to directly reference DOM elements in your MiniVue application.
+                These references are accessible via the $refs object in your component methods.
+            </p>
+
+            <div class="ref-examples">
+                <div class="ref-example">
+                    <h3>1. Input Focus Management</h3>
+                    <div class="example-box">
+                        <p>Reference an input element to manage focus programmatically:</p>
+                        <div class="demo-container">
+                            <input type="text" m-ref="focusInput" placeholder="This input can be focused">
+                            <button @click="focusReferencedInput">Focus Input</button>
+                        </div>
+                        <pre class="code-example">m-ref="focusInput"</pre>
+                    </div>
+                </div>
+
+                <div class="ref-example">
+                    <h3>2. Form Validation</h3>
+                    <div class="example-box">
+                        <p>Reference a form element to access all its inputs:</p>
+                        <div class="demo-container">
+                            <form m-ref="validationForm">
+                                <input type="text" placeholder="Username" required>
+                                <input type="email" placeholder="Email" required>
+                                <button type="button" @click="validateFormFields">Validate Form</button>
+                            </form>
+                        </div>
+                        <pre class="code-example">m-ref="validationForm"</pre>
+                    </div>
+                </div>
+
+                <div class="ref-example">
+                    <h3>3. List Item References</h3>
+                    <div class="example-box">
+                        <p>Reference multiple elements in a list using m-for:</p>
+                        <div class="demo-container">
+                            <div class="list-container">
+                                <div m-for="item in refListItems" 
+                                     m-ref="listElements" 
+                                     class="ref-list-item">
+                                    {{ item }}
+                                </div>
+                            </div>
+                            <button @click="toggleListItems">Toggle Items</button>
+                        </div>
+                        <pre class="code-example">m-ref="listElements"</pre>
+                    </div>
+                </div>
+
+                <div class="ref-example">
+                    <h3>4. Component References</h3>
+                    <div class="example-box">
+                        <p>Reference larger UI components for manipulation:</p>
+                        <div class="demo-container">
+                            <div m-ref="mainPanel" class="ref-panel">
+                                <h4>Main Panel</h4>
+                                <p>This panel can be manipulated via reference</p>
+                            </div>
+                            <button @click="togglePanel">Toggle Panel Style</button>
+                        </div>
+                        <pre class="code-example">m-ref="mainPanel"</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import MiniVue from 'minivue.js';
+
+        new MiniVue({
+            el: '#app',
+            data: {
+                todos: [
+                    { text: 'Learn MiniVue', completed: false },
+                    { text: 'Build something cool', completed: false }
+                ],
+                newTodo: '',
+                inputText: '',
+                formData: {
+                    name: '',
+                    email: ''
+                },
+                listItems: [
+                    { text: 'Item 1', highlighted: false },
+                    { text: 'Item 2', highlighted: false }
+                ],
+                refListItems: ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
+                isPanelActive: false
+            },
+            methods: {
+                addTodo() {
+                    if (this.newTodo.trim()) {
+                        this.todos.push({
+                            text: this.newTodo,
+                            completed: false
+                        });
+                        this.newTodo = '';
+                    }
+                },
+                removeTodo(todo) {
+                    const index = this.todos.indexOf(todo);
+                    if (index > -1) {
+                        this.todos.splice(index, 1);
+                    }
+                },
+                showRefs() {
+                    const messageBox = this.$refs.messageBox;
+                    console.log('Single element reference:', messageBox);
+                    
+                    const todoItems = this.$refs.todoItems;
+                    console.log('Todo items references:', todoItems);
+                    
+                    if (messageBox) {
+                        messageBox.style.backgroundColor = '#e6ffe6';
+                        setTimeout(() => {
+                            messageBox.style.backgroundColor = '';
+                        }, 1000);
+                    }
+                    
+                    if (todoItems && todoItems.length) {
+                        todoItems.forEach((item, index) => {
+                            item.style.backgroundColor = index % 2 === 0 ? '#f0f0f0' : '#ffffff';
+                        });
+                    }
+                },
+                focusInput() {
+                    const input = this.$refs.textInput;
+                    if (input) {
+                        input.focus();
+                    }
+                },
+                clearInput() {
+                    const input = this.$refs.textInput;
+                    if (input) {
+                        input.value = '';
+                        this.inputText = '';
+                    }
+                },
+                validateForm() {
+                    const form = this.$refs.demoForm;
+                    const inputs = form.querySelectorAll('input');
+                    let isValid = true;
+
+                    inputs.forEach(input => {
+                        if (!input.value) {
+                            input.style.borderColor = 'red';
+                            isValid = false;
+                        } else {
+                            input.style.borderColor = '';
+                        }
+                    });
+
+                    if (isValid) {
+                        console.log('Form is valid:', this.formData);
+                    }
+                },
+                addListItem() {
+                    this.listItems.push({
+                        text: `Item ${this.listItems.length + 1}`,
+                        highlighted: false
+                    });
+                },
+                highlightItems() {
+                    const items = this.$refs.listItems;
+                    if (items && items.length) {
+                        items.forEach((item, index) => {
+                            this.listItems[index].highlighted = !this.listItems[index].highlighted;
+                        });
+                    }
+                },
+                updateHeader() {
+                    const header = this.$refs.header;
+                    if (header) {
+                        header.style.backgroundColor = '#e6ffe6';
+                        setTimeout(() => {
+                            header.style.backgroundColor = '';
+                        }, 1000);
+                    }
+                },
+                updateContent() {
+                    const content = this.$refs.content;
+                    if (content) {
+                        content.style.backgroundColor = '#ffe6e6';
+                        setTimeout(() => {
+                            content.style.backgroundColor = '';
+                        }, 1000);
+                    }
+                },
+                focusReferencedInput() {
+                    const input = this.$refs.focusInput;
+                    if (input) {
+                        input.focus();
+                        input.style.borderColor = '#4CAF50';
+                        setTimeout(() => {
+                            input.style.borderColor = '';
+                        }, 1000);
+                    }
+                },
+                validateFormFields() {
+                    const form = this.$refs.validationForm;
+                    const inputs = form.querySelectorAll('input');
+                    let isValid = true;
+
+                    inputs.forEach(input => {
+                        if (!input.value) {
+                            input.style.borderColor = 'red';
+                            isValid = false;
+                        } else {
+                            input.style.borderColor = '';
+                        }
+                    });
+
+                    if (isValid) {
+                        console.log('Form is valid!');
+                    }
+                },
+                toggleListItems() {
+                    const items = this.$refs.listElements;
+                    if (items && items.length) {
+                        items.forEach((item, index) => {
+                            item.style.backgroundColor = index % 2 === 0 ? '#f0f0f0' : '#ffffff';
+                        });
+                    }
+                },
+                togglePanel() {
+                    const panel = this.$refs.mainPanel;
+                    if (panel) {
+                        this.isPanelActive = !this.isPanelActive;
+                        panel.classList.toggle('active');
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
