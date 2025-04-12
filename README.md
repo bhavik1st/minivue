@@ -1,11 +1,11 @@
-# MiniVue - v0.02
+# MiVue - v0.02
 <!-- 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg) -->
 
 
-MiniVue is simple, slim JS UI framework inspired from Vue.js and Alpine.js
-A lightweight, reactive MiniVue provides the core reactivity features of Vue with a simple and intuitive API of Alpine making is easier for beginners and non-ui devs to get the job done.
+MiVue is simple, slim JS UI framework inspired from Vue.js and Alpine.js
+A lightweight, reactive MiVue provides the core reactivity features of Vue with a simple and intuitive API of Alpine making is easier for beginners and non-ui devs to get the job done.
 
 NOTE: Python pyvue is also in the making
 
@@ -26,14 +26,14 @@ NOTE: Python pyvue is also in the making
 - **List Rendering** - Efficiently render lists with the m-for directive
 
 ## Getting Started
-![MiniVue Logo](src/image.png)
+![MiVue Logo](src/image.png)
 
 ### Installation
 
 Simply include the script in your HTML:
 
 ```html
-<script src="minivue.js"></script>
+<script src="mivue.js"></script>
 ```
 
 ### Basic Usage
@@ -45,10 +45,10 @@ Simply include the script in your HTML:
 </div>
 
 <script>
-  const app = new MiniVue({
+  const app = new MiVue({
     el: '#app',
     data: {
-      message: 'Hello MiniVue!'
+      message: 'Hello MiVue!'
     }
   });
 </script>
@@ -176,7 +176,7 @@ Example with events and conditional styling:
 ## Options API
 
 ```javascript
-const app = new MiniVue({
+const app = new MiVue({
   // Element to mount to
   el: '#app',
   
@@ -185,7 +185,7 @@ const app = new MiniVue({
   
   // Data properties (reactive)
   data: {
-    message: 'Hello MiniVue!',
+    message: 'Hello MiVue!',
     count: 0,
     isVisible: true,
     buttonColor: 'blue',
@@ -214,7 +214,7 @@ const app = new MiniVue({
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>MiniVue Example</title>
+  <title>MiVue Example</title>
   <style>
     .btn {
       padding: 8px 16px;
@@ -254,13 +254,13 @@ const app = new MiniVue({
     </div>
   </div>
 
-  <script src="minivue.js"></script>
+  <script src="mivue.js"></script>
   <script>
-    const app = new MiniVue({
+    const app = new MiVue({
       el: '#app',
       debug: true,
       data: {
-        title: 'MiniVue Demo',
+        title: 'MiVue Demo',
         titlePlaceholder: 'Enter a title',
         count: 0,
         buttonColor: '#42b883',
@@ -294,13 +294,13 @@ const app = new MiniVue({
 
 ## How It Works
 
-MiniVue uses JavaScript's `Object.defineProperty` to make data properties reactive. When a property is accessed during rendering, it's registered as a dependency. When the property changes, all registered dependencies are notified to update.
+MiVue uses JavaScript's `Object.defineProperty` to make data properties reactive. When a property is accessed during rendering, it's registered as a dependency. When the property changes, all registered dependencies are notified to update.
 
 The update process uses a publisher-subscriber pattern with Dep (dependency) and Watcher classes inspired by Vue's implementation.
 
 ### Event Handling System
 
-MiniVue's event handling supports:
+MiVue's event handling supports:
 - Direct method binding (`@click="handleClick"`)
 - Method calls with parameters (`@click="increment(5)"`)
 - Access to the DOM event via `$event` parameter
@@ -316,7 +316,7 @@ The attribute binding system allows:
 
 ## Limitations
 
-Being a minimal implementation, MiniVue lacks some Vue.js features:
+Being a minimal implementation, MiVue lacks some Vue.js features:
 
 - No virtual DOM
 - No component system
@@ -332,7 +332,7 @@ MIT
 
 ## Testing
 
-MiniVue includes a comprehensive test suite to ensure all framework features work correctly.
+MiVue includes a comprehensive test suite to ensure all framework features work correctly.
 
 ### Test Setup
 
@@ -373,7 +373,7 @@ The test suite verifies all core functionality:
 
 If you encounter issues:
 
-1. Enable debug mode: `debug: true` in your MiniVue instance
+1. Enable debug mode: `debug: true` in your MiVue instance
 2. Check the console for detailed logs of what's happening
 3. Verify that your templates are correctly structured
 4. Review the event handlers and attribute bindings for syntax errors

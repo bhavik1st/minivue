@@ -2,14 +2,14 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
 
-// Browser build (UMD format) - This will expose MiniVue as a global variable
+// Browser build (UMD format) - This will expose MiVue as a global variable
 export default defineConfig({
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/minivue.js'),
-      name: 'MiniVue',
+      entry: resolve(__dirname, 'src/mivue.js'),
+      name: 'MiVue',
       formats: ['umd'],
-      fileName: (format) => 'minivue.js'
+      fileName: (format) => 'mivue.js'
     },
     outDir: 'dist',
     emptyOutDir: false,
@@ -18,11 +18,11 @@ export default defineConfig({
     rollupOptions: {
       output: {
         format: 'umd',
-        name: 'MiniVue',
+        name: 'MiVue',
         inlineDynamicImports: true,
         exports: 'named',
         globals: {
-          MiniVue: 'MiniVue'
+          MiVue: 'MiVue'
         }
       }
     }
@@ -33,10 +33,10 @@ export default defineConfig({
 export const minified = defineConfig({
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/minivue.js'),
-      name: 'MiniVue',
+      entry: resolve(__dirname, 'src/mivue.js'),
+      name: 'MiVue',
       formats: ['umd'],
-      fileName: (format) => 'minivue.min.js'
+      fileName: (format) => 'mivue.min.js'
     },
     outDir: 'dist',
     emptyOutDir: false,
@@ -45,11 +45,11 @@ export const minified = defineConfig({
     rollupOptions: {
       output: {
         format: 'umd',
-        name: 'MiniVue',
+        name: 'MiVue',
         inlineDynamicImports: true,
         exports: 'named',
         globals: {
-          MiniVue: 'MiniVue'
+          MiVue: 'MiVue'
         }
       }
     }
@@ -60,10 +60,10 @@ export const minified = defineConfig({
 export const esm = defineConfig({
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/minivue.js'),
-      name: 'MiniVue',
+      entry: resolve(__dirname, 'src/mivue.js'),
+      name: 'MiVue',
       formats: ['es'],
-      fileName: (format) => 'minivue.esm.js'
+      fileName: (format) => 'mivue.esm.js'
     },
     outDir: 'dist',
     emptyOutDir: false,

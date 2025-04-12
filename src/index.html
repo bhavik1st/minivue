@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MiniVue Demo</title>
+  <title>MiVue Demo</title>
   <style>
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -170,7 +170,7 @@
   </style>
 </head>
 <body>
-  <h1>MiniVue Demo</h1>
+  <h1>MiVue Demo</h1>
   
   <div id="app">
     <div class="card">
@@ -334,7 +334,7 @@
 
     <div class="card">
       <h2>m-ref Examples</h2>
-      <p class="description">The m-ref directive allows you to directly reference DOM elements in your MiniVue application.</p>
+      <p class="description">The m-ref directive allows you to directly reference DOM elements in your MiVue application.</p>
       
       <div class="ref-example">
         <h3>1. Input Focus Management</h3>
@@ -414,18 +414,18 @@
       <div class="todo-info">
         <!-- TODO: Use computed property -->
         <!-- This is not working because 'remaining' is not properly set up as a computed property.
-             MiniVue needs computed properties to be defined in the computed section of the options.
+             MiVue needs computed properties to be defined in the computed section of the options.
              Also, we need to make sure the todos array is being tracked for reactivity. -->
         <p>Remaining tasks: {{ getRemainingTasks() }}</p>
-        <!-- Alternative approach: define 'remaining' in the computed section of the MiniVue instance -->
+        <!-- Alternative approach: define 'remaining' in the computed section of the MiVue instance -->
         <button @click="clearCompleted" class="btn btn-small">Clear Completed</button>
       </div>
     </div>
   </div>
 
-  <script src="minivue.js"></script>
+  <script src="mivue.js"></script>
   <script>
-    const app = new MiniVue({
+    const app = new MiVue({
       el: '#app',
       debug: true,
       data: {
@@ -570,11 +570,11 @@
     }, 100);
 
     // Initialize the todos example
-    var todoApp = new MiniVue({
+    var todoApp = new MiVue({
       el: '#for-app',
       data: {
         todos: [
-          { id: 1, text: 'Learn MiniVue', completed: false },
+          { id: 1, text: 'Learn MiVue', completed: false },
           { id: 2, text: 'Build something awesome', completed: false },
           { id: 3, text: 'Share with the world', completed: false }
         ],

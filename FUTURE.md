@@ -1,6 +1,6 @@
-# MiniVue: Future Features Roadmap
+# MiVue: Future Features Roadmap
 
-This document outlines the next must-have features to be developed for MiniVue, inspired by Alpine.js and Vue.js.
+This document outlines the next must-have features to be developed for MiVue, inspired by Alpine.js and Vue.js.
 
 ## 1. Improved Reactivity with Proxy
 
@@ -27,7 +27,7 @@ const reactiveData = createReactive({
 </div>
 
 <script>
-  MiniVue.component('todo-item', {
+  MiVue.component('todo-item', {
     props: ['todo'],
     template: `
       <div class="todo-item">
@@ -57,7 +57,7 @@ const reactiveData = createReactive({
 ## 4. Lifecycle Hooks
 
 ```javascript
-new MiniVue({
+new MiVue({
   created() {
     // Called after instance is created
     console.log('Component created');
@@ -118,14 +118,14 @@ new MiniVue({
 
 ```javascript
 // Precompile templates for better performance
-const compiledTemplate = MiniVue.compile(`
+const compiledTemplate = MiVue.compile(`
   <div>
     <h1>{{ title }}</h1>
     <button @click="increment">{{ count }}</button>
   </div>
 `);
 
-new MiniVue({
+new MiVue({
   render: compiledTemplate
 });
 ```
@@ -134,7 +134,7 @@ new MiniVue({
 
 ```javascript
 // Custom directives
-MiniVue.directive('focus', {
+MiVue.directive('focus', {
   mounted(el) {
     el.focus();
   }
@@ -148,7 +148,7 @@ MiniVue.directive('focus', {
 
 ```javascript
 // Simple store like Pinia/Vuex
-const store = MiniVue.createStore({
+const store = MiVue.createStore({
   state: {
     count: 0
   },
@@ -183,4 +183,4 @@ const store = MiniVue.createStore({
    - Directives API
    - State management
 
-These features would significantly enhance MiniVue while maintaining its lightweight nature, bridging the gap between the current implementation and more feature-rich frameworks like Vue.js and Alpine.js. 
+These features would significantly enhance MiVue while maintaining its lightweight nature, bridging the gap between the current implementation and more feature-rich frameworks like Vue.js and Alpine.js. 

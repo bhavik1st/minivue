@@ -5,10 +5,10 @@ import { resolve } from 'path';
 export default defineConfig({
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/minivue.js'),
-      name: 'MiniVue',
+      entry: resolve(__dirname, 'src/mivue.js'),
+      name: 'MiVue',
       formats: ['es'],
-      fileName: () => 'minivue.esm.js'
+      fileName: () => 'mivue.esm.js'
     },
     outDir: 'dist',
     emptyOutDir: false,

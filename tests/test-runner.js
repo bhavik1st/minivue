@@ -22,22 +22,22 @@ Object.keys(window).forEach(key => {
 const assert = require('assert');
 global.assert = assert;
 
-// Load MiniVue
+// Load MiVue
 const fs = require('fs');
 const path = require('path');
-const miniVuePath = path.join(__dirname, '..', 'dist', 'minivue.js');
+const miniVuePath = path.join(__dirname, '..', 'dist', 'mivue.js');
 const miniVueContent = fs.readFileSync(miniVuePath, 'utf8');
 
-// Inject MiniVue into our virtual DOM
+// Inject MiVue into our virtual DOM
 const scriptEl = window.document.createElement('script');
 scriptEl.textContent = miniVueContent;
 window.document.body.appendChild(scriptEl);
 
-// If MiniVue is an object with a default property, use that
-if (window.MiniVue && typeof window.MiniVue === 'object' && window.MiniVue.default) {
-  global.MiniVue = window.MiniVue.default;
+// If MiVue is an object with a default property, use that
+if (window.MiVue && typeof window.MiVue === 'object' && window.MiVue.default) {
+  global.MiVue = window.MiVue.default;
 } else {
-  global.MiniVue = window.MiniVue;
+  global.MiVue = window.MiVue;
 }
 
 // Run the tests

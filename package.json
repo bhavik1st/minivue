@@ -1,13 +1,13 @@
 {
-    "name": "minivue",
-    "version": "1.0.0",
-    "description": "A lightweight, reactive JavaScript framework inspired by Vue.js",
-    "main": "dist/minivue.js",
-    "module": "dist/minivue.esm.js",
+    "name": "@uimonk/mivue",
+    "version": "0.0.1",
+    "description": "A lightweight, reactive JavaScript framework inspired by Vue.js and Alpine.js",
+    "main": "dist/mivue.js",
+    "module": "dist/mivue.esm.js",
     "exports": {
         ".": {
-            "import": "./dist/minivue.esm.js",
-            "require": "./dist/minivue.js"
+            "import": "./dist/mivue.esm.js",
+            "require": "./dist/mivue.js"
         }
     },
     "scripts": {
@@ -22,15 +22,19 @@
     },
     "keywords": [
         "vue",
-        "minivue",
+        "mivue",
         "javascript",
         "framework",
         "reactive",
-        "minivue",
+        "mivue",
         "mue"
     ],
     "author": "Bhavik Shah <bhavik.shah@gmail.com>",
     "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/uimonk/mivue.git"
+    },
     "devDependencies": {
         "jsdom": "^21.1.0",
         "mocha": "^10.2.0",

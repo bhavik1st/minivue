@@ -1,8 +1,8 @@
-// add import for MiniVue
-const MiniVue = global.MiniVue;
+// add import for MiVue
+const MiVue = global.MiVue;
 
-// Test suite for MiniVue
-describe('MiniVue Framework Tests', function() {
+// Test suite for MiVue
+describe('MiVue Framework Tests', function() {
   // Setup mock DOM environment before each test
   let container;
   
@@ -25,15 +25,15 @@ describe('MiniVue Framework Tests', function() {
     it('should bind data to the view', function(done) {
       container.innerHTML = '<div id="app"><p>{{ message }}</p></div>';
       
-      const app = new MiniVue({
+      const app = new MiVue({
         el: '#app',
         data: {
-          message: 'Hello MiniVue'
+          message: 'Hello MiVue'
         }
       });
       
       const p = container.querySelector('p');
-      assert.equal(p.textContent, 'Hello MiniVue');
+      assert.equal(p.textContent, 'Hello MiVue');
       
       // Test reactivity
       app.message = 'Updated Message';
@@ -50,10 +50,10 @@ describe('MiniVue Framework Tests', function() {
     it('should create two-way binding for input elements', function(done) {
       container.innerHTML = '<div id="app"><input m-model="message"><p>{{ message }}</p></div>';
       
-      const app = new MiniVue({
+      const app = new MiVue({
         el: '#app',
         data: {
-          message: 'Hello MiniVue'
+          message: 'Hello MiVue'
         }
       });
       
@@ -61,8 +61,8 @@ describe('MiniVue Framework Tests', function() {
       const p = container.querySelector('p');
       
       // Check initial value
-      assert.equal(input.value, 'Hello MiniVue');
-      assert.equal(p.textContent, 'Hello MiniVue');
+      assert.equal(input.value, 'Hello MiVue');
+      assert.equal(p.textContent, 'Hello MiVue');
       
       // Update input and check if data and view update
       input.value = 'Updated via input';
@@ -83,7 +83,7 @@ describe('MiniVue Framework Tests', function() {
     it('should handle checkbox elements correctly', function(done) {
       container.innerHTML = '<div id="app"><input type="checkbox" m-model="checked"><p>{{ checked }}</p></div>';
       
-      const app = new MiniVue({
+      const app = new MiVue({
         el: '#app',
         data: {
           checked: true
@@ -118,7 +118,7 @@ describe('MiniVue Framework Tests', function() {
     it('should conditionally render elements', function(done) {
       container.innerHTML = '<div id="app"><div m-if="show">Conditional Content</div></div>';
       
-      const app = new MiniVue({
+      const app = new MiVue({
         el: '#app',
         data: {
           show: true
@@ -165,7 +165,7 @@ describe('MiniVue Framework Tests', function() {
     it('should handle click events with m-on:click', function(done) {
       container.innerHTML = '<div id="app"><button m-on:click="increment">Increment</button><p>{{ counter }}</p></div>';
       
-      const app = new MiniVue({
+      const app = new MiVue({
         el: '#app',
         data: {
           counter: 0
@@ -199,7 +199,7 @@ describe('MiniVue Framework Tests', function() {
     it('should handle click events with @click shorthand', function(done) {
       container.innerHTML = '<div id="app"><button @click="decrement">Decrement</button><p>{{ counter }}</p></div>';
       
-      const app = new MiniVue({
+      const app = new MiVue({
         el: '#app',
         data: {
           counter: 10
@@ -233,7 +233,7 @@ describe('MiniVue Framework Tests', function() {
     it('should handle event with parameters', function(done) {
       container.innerHTML = '<div id="app"><button @click="addAmount(5)">Add 5</button><p>{{ counter }}</p></div>';
       
-      const app = new MiniVue({
+      const app = new MiVue({
         el: '#app',
         data: {
           counter: 0
@@ -273,7 +273,7 @@ describe('MiniVue Framework Tests', function() {
         </div>
       `;
       
-      const app = new MiniVue({
+      const app = new MiVue({
         el: '#app',
         data: {
           eventType: 'none'
@@ -314,7 +314,7 @@ describe('MiniVue Framework Tests', function() {
         </div>
       `;
       
-      const app = new MiniVue({
+      const app = new MiVue({
         el: '#app',
         data: {
           lastEvent: 'none'
@@ -365,7 +365,7 @@ describe('MiniVue Framework Tests', function() {
         </div>
       `;
       
-      const app = new MiniVue({
+      const app = new MiVue({
         el: '#app',
         data: {
           value: 10,
@@ -414,7 +414,7 @@ describe('MiniVue Framework Tests', function() {
         </div>
       `;
       
-      const app = new MiniVue({
+      const app = new MiVue({
         el: '#app',
         data: {
           placeholderText: 'Enter your name'
@@ -443,7 +443,7 @@ describe('MiniVue Framework Tests', function() {
         </div>
       `;
       
-      const app = new MiniVue({
+      const app = new MiVue({
         el: '#app',
         data: {
           linkUrl: 'https://example.com',
@@ -475,7 +475,7 @@ describe('MiniVue Framework Tests', function() {
         </div>
       `;
       
-      const app = new MiniVue({
+      const app = new MiVue({
         el: '#app',
         data: {
           isDisabled: true
@@ -504,7 +504,7 @@ describe('MiniVue Framework Tests', function() {
         </div>
       `;
       
-      const app = new MiniVue({
+      const app = new MiVue({
         el: '#app',
         data: {
           statusType: 'active'
@@ -533,7 +533,7 @@ describe('MiniVue Framework Tests', function() {
         </div>
       `;
       
-      const app = new MiniVue({
+      const app = new MiVue({
         el: '#app',
         data: {
           maxLength: 10
@@ -562,7 +562,7 @@ describe('MiniVue Framework Tests', function() {
     it('should render list items correctly', function(done) {
       container.innerHTML = '<div id="app"><div><div m-for="item in items">{{ item.name }}</div></div></div>';
       
-      const app = new MiniVue({
+      const app = new MiVue({
         el: '#app',
         data: {
           items: [
@@ -591,7 +591,7 @@ describe('MiniVue Framework Tests', function() {
     it('should update when array is modified', function(done) {
       container.innerHTML = '<div id="app"><div><div m-for="item in items">{{ item.name }}</div></div></div>';
       
-      const app = new MiniVue({
+      const app = new MiVue({
         el: '#app',
         data: {
           items: [
@@ -640,7 +640,7 @@ describe('MiniVue Framework Tests', function() {
     it('should calculate derived values', function(done) {
       container.innerHTML = '<div id="app"><p>{{ count }}</p><p>{{ doubled }}</p></div>';
       
-      const app = new MiniVue({
+      const app = new MiVue({
         el: '#app',
         data: {
           count: 2

@@ -1,10 +1,10 @@
-// MiniVue - A minimal Vue-inspired JavaScript framework
+// MiVue - A minimal Vue-inspired JavaScript framework
 const VALID_PREFIX = 'm-';
 const VALID_DIRECTIVES = ['model', 'if', 'for', 'bind', 'on'];
 const VALID_EVENTS = ['click', 'change', 'input', 'submit', 'keydown', 'keyup', 'mouseover', 'mouseout', 'mousemove', 'mouseenter', 'mouseleave'];
 
-class MiniVue {
-  constructor(options) {
+class MiVue {
+  constructor(options = {}) {
     this.$options = options || {};
     this.$data = options.data || {};
     this.$el = typeof options.el === 'string' 
@@ -14,11 +14,11 @@ class MiniVue {
     this.$refs = {}; // Initialize $refs object
     
     try {
-      this.log('Initializing MiniVue instance');
+      this.log('Initializing MiVue instance');
       // Make data properties reactive
       this._observe(this.$data);
       
-      // Proxy data properties to MiniVue instance
+      // Proxy data properties to MiVue instance
       for (let key in this.$data) {
         Object.defineProperty(this, key, {
           get: () => this.$data[key],
@@ -41,7 +41,7 @@ class MiniVue {
         this.log('Warning: No element provided, DOM compilation skipped');
       }
     } catch (error) {
-      console.error('[MiniVue] Initialization error:', error);
+      console.error('[MiVue] Initialization error:', error);
     }
   }
   
@@ -73,11 +73,11 @@ class MiniVue {
         });
       }
     } catch (error) {
-      console.error('[MiniVue] Error setting up computed properties:', error);
+      console.error('[MiVue] Error setting up computed properties:', error);
     }
   }
   
-  // Bind methods to the MiniVue instance
+  // Bind methods to the MiVue instance
   _bindMethods(methods) {
     try {
       this.log('Binding methods to instance');
@@ -86,18 +86,18 @@ class MiniVue {
           this[key] = methods[key].bind(this);
           this.log(`Method bound: ${key}`);
         } else {
-          console.warn(`[MiniVue] Method ${key} is not a function`);
+          console.warn(`[MiVue] Method ${key} is not a function`);
         }
       }
     } catch (error) {
-      console.error('[MiniVue] Error binding methods:', error);
+      console.error('[MiVue] Error binding methods:', error);
     }
   }
   
   // Logging method
   log(...args) {
     if (this.debug) {
-      console.log('[MiniVue]', ...args);
+      console.log('[MiVue]', ...args);
     }
   }
   
@@ -143,7 +143,7 @@ class MiniVue {
         });
       }
     } catch (error) {
-      console.error('[MiniVue] Reactivity setup error:', error);
+      console.error('[MiVue] Reactivity setup error:', error);
     }
   }
   
@@ -194,7 +194,7 @@ class MiniVue {
         }
       });
     } catch (error) {
-      console.error('[MiniVue] Error making array reactive:', error);
+      console.error('[MiVue] Error making array reactive:', error);
     }
   }
   
@@ -216,11 +216,11 @@ class MiniVue {
             this._compileTextNode(node);
           }
         } catch (nodeError) {
-          console.error('[MiniVue] Error compiling node:', nodeError, node);
+          console.error('[MiVue] Error compiling node:', nodeError, node);
         }
       });
     } catch (error) {
-      console.error('[MiniVue] Template compilation error:', error);
+      console.error('[MiVue] Template compilation error:', error);
     }
   }
   
@@ -288,7 +288,7 @@ class MiniVue {
             this._bindAttributeDirective(node, attrToBind, value);
           }
         } catch (attrError) {
-          console.error('[MiniVue] Error processing attribute:', attrError, attr);
+          console.error('[MiVue] Error processing attribute:', attrError, attr);
         }
       });
       
@@ -317,7 +317,7 @@ class MiniVue {
         
         // Check if the method exists
         if (typeof this[methodName] !== 'function') {
-          console.warn(`[MiniVue] Method ${methodName} not defined`);
+          console.warn(`[MiVue] Method ${methodName} not defined`);
           return;
         }
         
@@ -369,7 +369,7 @@ class MiniVue {
                   // Default fallback
                   return arg;
                 } catch (evalError) {
-                  console.error('[MiniVue] Error evaluating argument:', evalError);
+                  console.error('[MiVue] Error evaluating argument:', evalError);
                   return undefined;
                 }
               });
@@ -381,14 +381,14 @@ class MiniVue {
             // Clean up
             delete this.$event;
           } catch (evalError) {
-            console.error('[MiniVue] Error evaluating expression:', evalError);
+            console.error('[MiVue] Error evaluating expression:', evalError);
           }
         });
       } else {
         // Simple method call without arguments
         // Check if the method exists on the instance
         if (typeof this[handlerExpression] !== 'function') {
-          console.warn(`[MiniVue] Method ${handlerExpression} not defined`);
+          console.warn(`[MiVue] Method ${handlerExpression} not defined`);
           return;
         }
         
@@ -399,7 +399,7 @@ class MiniVue {
         });
       }
     } catch (error) {
-      console.error(`[MiniVue] Error binding event ${event}:`, error);
+      console.error(`[MiVue] Error binding event ${event}:`, error);
     }
   }
   
@@ -474,7 +474,7 @@ class MiniVue {
         });
       }
     } catch (error) {
-      console.error('[MiniVue] Error binding m-model:', error);
+      console.error('[MiVue] Error binding m-model:', error);
     }
   }
   
@@ -498,7 +498,7 @@ class MiniVue {
       node.style.display = currentVal ? initialDisplay : 'none';
       this.log(`Set initial display to: ${node.style.display}`);
     } catch (error) {
-      console.error('[MiniVue] Error binding m-if:', error);
+      console.error('[MiVue] Error binding m-if:', error);
     }
   }
   
@@ -536,7 +536,7 @@ class MiniVue {
         });
         node.textContent = newText;
       } catch (error) {
-        console.error('[MiniVue] Error compiling text node:', error);
+        console.error('[MiVue] Error compiling text node:', error);
       }
     }
   }
@@ -568,7 +568,7 @@ class MiniVue {
             this._evaluateAttributeExpression(node, attr, value);
           }
         } catch (updateError) {
-          console.error(`[MiniVue] Error updating attribute ${attr}:`, updateError);
+          console.error(`[MiVue] Error updating attribute ${attr}:`, updateError);
         }
       };
       
@@ -589,7 +589,7 @@ class MiniVue {
         new Watcher(this, value, updateAttribute);
       }
     } catch (error) {
-      console.error(`[MiniVue] Error binding attribute ${attr}:`, error);
+      console.error(`[MiVue] Error binding attribute ${attr}:`, error);
     }
   }
   
@@ -670,7 +670,7 @@ class MiniVue {
                 node.style[propName] = finalValue;
               });
             } catch (objError) {
-              console.error('[MiniVue] Error parsing style object:', objError);
+              console.error('[MiVue] Error parsing style object:', objError);
             }
           }
           // Direct property reference
@@ -678,7 +678,7 @@ class MiniVue {
             node.style.cssText = this.$data[value];
           }
         } catch (styleError) {
-          console.error('[MiniVue] Error updating style:', styleError);
+          console.error('[MiVue] Error updating style:', styleError);
         }
       };
       
@@ -692,7 +692,7 @@ class MiniVue {
         }
       }
     } catch (error) {
-      console.error('[MiniVue] Error binding style attribute:', error);
+      console.error('[MiVue] Error binding style attribute:', error);
     }
   }
   
@@ -750,7 +750,7 @@ class MiniVue {
             node.setAttribute(attr, result);
             return;
           } catch (evalError) {
-            console.warn(`[MiniVue] Couldn't evaluate expression ${expression}:`, evalError);
+            console.warn(`[MiVue] Couldn't evaluate expression ${expression}:`, evalError);
           }
         }
         
@@ -758,7 +758,7 @@ class MiniVue {
         node.setAttribute(attr, expression);
       }
     } catch (error) {
-      console.error(`[MiniVue] Error evaluating attribute expression:`, error);
+      console.error(`[MiVue] Error evaluating attribute expression:`, error);
     }
   }
 
@@ -770,7 +770,7 @@ class MiniVue {
       // Parse the expression (item in items, or item, index in items)
       const forMatch = expression.match(/^\s*(\w+)(\s*,\s*(\w+))?\s+in\s+(\w+)\s*$/);
       if (!forMatch) {
-        console.error(`[MiniVue] Invalid m-for expression: ${expression}`);
+        console.error(`[MiVue] Invalid m-for expression: ${expression}`);
         return;
       }
       
@@ -779,7 +779,7 @@ class MiniVue {
       const arrayName = forMatch[4];
       
       if (!this.$data[arrayName] || !Array.isArray(this.$data[arrayName])) {
-        console.warn(`[MiniVue] m-for array "${arrayName}" is not defined or not an array`);
+        console.warn(`[MiVue] m-for array "${arrayName}" is not defined or not an array`);
         return;
       }
       
@@ -884,7 +884,7 @@ class MiniVue {
       new Watcher(this, arrayName, renderList);
       
     } catch (error) {
-      console.error('[MiniVue] Error binding m-for:', error);
+      console.error('[MiVue] Error binding m-for:', error);
     }
   }
 
@@ -941,7 +941,7 @@ class MiniVue {
               this._bindAttributeInForItem(node, attrToBind, value);
             }
           } catch (attrError) {
-            console.error('[MiniVue] Error processing attribute in m-for item:', attrError, attr);
+            console.error('[MiVue] Error processing attribute in m-for item:', attrError, attr);
           }
         });
       }
@@ -958,7 +958,7 @@ class MiniVue {
         }
       });
     } catch (error) {
-      console.error('[MiniVue] Error compiling m-for item:', error);
+      console.error('[MiVue] Error compiling m-for item:', error);
     }
   }
 
@@ -991,7 +991,7 @@ class MiniVue {
       
       return undefined;
     } catch (error) {
-      console.error('[MiniVue] Error evaluating for scope expression:', error);
+      console.error('[MiVue] Error evaluating for scope expression:', error);
       return undefined;
     }
   }
@@ -1018,7 +1018,7 @@ class MiniVue {
         node.textContent = newText;
         
       } catch (error) {
-        console.error('[MiniVue] Error compiling text node in m-for item:', error);
+        console.error('[MiVue] Error compiling text node in m-for item:', error);
       }
     }
   }
@@ -1043,7 +1043,7 @@ class MiniVue {
         
         // Check if the method exists
         if (typeof this[methodName] !== 'function') {
-          console.warn(`[MiniVue] Method ${methodName} not defined`);
+          console.warn(`[MiVue] Method ${methodName} not defined`);
           return;
         }
         
@@ -1090,13 +1090,13 @@ class MiniVue {
             
             delete this.$event;
           } catch (evalError) {
-            console.error('[MiniVue] Error in m-for event handler:', evalError);
+            console.error('[MiVue] Error in m-for event handler:', evalError);
           }
         });
       } else {
         // Simple handler without arguments
         if (typeof this[handlerExpression] !== 'function') {
-          console.warn(`[MiniVue] Method ${handlerExpression} not defined`);
+          console.warn(`[MiVue] Method ${handlerExpression} not defined`);
           return;
         }
         
@@ -1105,7 +1105,7 @@ class MiniVue {
         });
       }
     } catch (error) {
-      console.error(`[MiniVue] Error binding event in m-for item:`, error);
+      console.error(`[MiVue] Error binding event in m-for item:`, error);
     }
   }
 
@@ -1120,7 +1120,7 @@ class MiniVue {
       const currentVal = this._evaluateInForScope(value, scope);
       node.style.display = currentVal ? initialDisplay : 'none';
     } catch (error) {
-      console.error('[MiniVue] Error binding m-if in m-for item:', error);
+      console.error('[MiVue] Error binding m-if in m-for item:', error);
     }
   }
 
@@ -1171,7 +1171,7 @@ class MiniVue {
             }
           }
         } catch (objectError) {
-          console.error('[MiniVue] Error parsing object expression:', objectError);
+          console.error('[MiVue] Error parsing object expression:', objectError);
         }
       } else {
         // Regular attribute binding
@@ -1181,7 +1181,7 @@ class MiniVue {
         }
       }
     } catch (error) {
-      console.error(`[MiniVue] Error binding attribute in m-for item:`, error);
+      console.error(`[MiVue] Error binding attribute in m-for item:`, error);
     }
   }
 
@@ -1194,13 +1194,13 @@ class MiniVue {
       // Get the item property path
       const parts = value.split('.');
       if (parts.length < 2) {
-        console.warn(`[MiniVue] m-model in m-for should reference item properties: ${value}`);
+        console.warn(`[MiVue] m-model in m-for should reference item properties: ${value}`);
         return;
       }
       
       const itemName = parts[0];
       if (!scope[itemName]) {
-        console.warn(`[MiniVue] m-model references unknown item: ${itemName}`);
+        console.warn(`[MiVue] m-model references unknown item: ${itemName}`);
         return;
       }
       
@@ -1242,7 +1242,7 @@ class MiniVue {
         });
       }
     } catch (error) {
-      console.error('[MiniVue] Error binding m-model in m-for item:', error);
+      console.error('[MiVue] Error binding m-model in m-for item:', error);
     }
   }
 
@@ -1257,7 +1257,7 @@ class MiniVue {
       // Remove the m-ref attribute from the DOM
       node.removeAttribute('m-ref');
     } catch (error) {
-      console.error('[MiniVue] Error binding m-ref:', error);
+      console.error('[MiVue] Error binding m-ref:', error);
     }
   }
 
@@ -1277,7 +1277,7 @@ class MiniVue {
       // Remove the m-ref attribute from the DOM
       node.removeAttribute('m-ref');
     } catch (error) {
-      console.error('[MiniVue] Error binding m-ref in m-for:', error);
+      console.error('[MiVue] Error binding m-ref in m-for:', error);
     }
   }
 }
@@ -1299,7 +1299,7 @@ class Dep {
       try {
         sub.update();
       } catch (error) {
-        console.error('[MiniVue] Error updating subscriber:', error);
+        console.error('[MiVue] Error updating subscriber:', error);
       }
     });
   }
@@ -1325,7 +1325,7 @@ class Watcher {
       // Initial call to render
       this.update();
     } catch (error) {
-      console.error('[MiniVue] Error creating watcher for', key, error);
+      console.error('[MiVue] Error creating watcher for', key, error);
       Dep.target = null;
     }
   }
@@ -1334,16 +1334,16 @@ class Watcher {
     try {
       this.callback.call(this.vm);
     } catch (error) {
-      console.error('[MiniVue] Error in watcher update:', error);
+      console.error('[MiVue] Error in watcher update:', error);
     }
   }
 }
 // For browser support
 if (typeof window !== 'undefined') {
-  window.MiniVue = window.MiniVue || MiniVue;
+  window.MiVue = window.MiVue || MiVue;
 }
 
 // For module support
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = MiniVue;
+  module.exports = MiVue;
 } 

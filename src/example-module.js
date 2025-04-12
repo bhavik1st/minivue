@@ -1,9 +1,9 @@
-// Example of using MiniVue as an ES module
-import MiniVue from '../dist/minivue.esm.js';
+// Example of using MiVue as an ES module
+import MiVue from '../dist/mivue.esm.js';
 
 // Initialize your app when the DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-  const app = new MiniVue({
+  const app = new MiVue({
     el: '#app',
     data: {
       message: 'Hello from ES Module import!',

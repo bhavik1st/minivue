@@ -1,6 +1,6 @@
-# MiniVue in MicroPython
+# MiVue in MicroPython
 
-This document explores the possibility of implementing MiniVue using MicroPython in a browser environment.
+This document explores the possibility of implementing MiVue using MicroPython in a browser environment.
 
 ## Using MicroPython in Browser
 
@@ -13,7 +13,7 @@ There are several options to run Python in the browser:
 ## Implementation Approach
 
 ```python
-# Example using Brython to create a MiniVue-like object
+# Example using Brython to create a MiVue-like object
 from browser import document, html
 
 class MicroVue:
@@ -85,7 +85,7 @@ app = MicroVue({
 2. You're building a Python-focused educational tool
 3. Your team is more comfortable with Python than JavaScript
 
-For most web applications, using the JavaScript version of MiniVue would be more efficient, but the Python approach could be an interesting experiment or useful in specialized scenarios.
+For most web applications, using the JavaScript version of MiVue would be more efficient, but the Python approach could be an interesting experiment or useful in specialized scenarios.
 
 ## Extended Example with More Features
 
