@@ -1,9 +1,9 @@
 # MiVue - v0.02
-<!-- 
-![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+
+![Version](https://img.shields.io/badge/version-0.0.4-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg) 
 ![npm version](https://www.npmjs.com/package/mivue)
--->
+
 
 
 MiVue is simple, slim JS UI framework inspired from Vue.js and Alpine.js
