@@ -114,8 +114,10 @@ export default defineConfig({
   },
   // https://docs.astro.build/en/guides/prefetch/
   prefetch: true,
-  // ! Please remember to replace the following site property with your own domain
-  site: "http://astrocitrus.artemkutsan.pp.ua/",
+  // Using a base URL that works for local development
+  site: import.meta.env.PROD ? "https://ui-monk.github.io/mivue" : "http://localhost:4321",
+  // Base path for GitHub Pages
+  base: import.meta.env.PROD ? "/mivue" : "",
   vite: {
     build: {
       sourcemap: true, // Source maps generation

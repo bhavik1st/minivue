@@ -30,7 +30,7 @@ import { Icon } from "astro-icon/components";
 				aria-label={siteConfig.title}
 				aria-current={Astro.url.pathname === "/" ? "page" : false}
 				class="group flex h-8 items-center hover:filter-none sm:relative"
-				href="/"
+				href={import.meta.env.BASE_URL || "/"}
 			>	
 				<!-- Logo -->
 				<!--
@@ -42,7 +42,7 @@ import { Icon } from "astro-icon/components";
 				-->
 				<div title={siteConfig.title}>
 					<svg class="inline-block size-8 fill-current text-accent-base dark:text-accent-two drop-shadow-[0px_2.5px_2.5px_rgba(0,0,0,0.35)]">
-						<use href="/brand.svg#citrus"></use>
+						<use href={`${import.meta.env.BASE_URL}/brand.svg#citrus`}></use>
 					</svg>
 				</div>
 				

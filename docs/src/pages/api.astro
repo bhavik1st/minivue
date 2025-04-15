@@ -9,7 +9,7 @@ import PageLayout from "@/layouts/Base.astro";
 		<h2 class="title mb-4 text-xl text-accent-two">Instance Options</h2>
 		
 		<div class="mb-6 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto">
-			<pre><code>{`const app = new MiVue({
+			<pre><code class="language-javascript">{`const app = new MiVue({
   // Element to mount to
   el: '#app',
   
@@ -75,7 +75,7 @@ import PageLayout from "@/layouts/Base.astro";
 			<h3 class="font-semibold mb-2">m-model</h3>
 			<p class="mb-2">Creates two-way data binding on form elements.</p>
 			<div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto">
-				<pre><code>{`<!-- Text input -->
+				<pre><code class="language-html">{`<!-- Text input -->
 <input type="text" m-model="message">
 
 <!-- Checkbox -->
@@ -100,7 +100,7 @@ import PageLayout from "@/layouts/Base.astro";
 			<h3 class="font-semibold mb-2">m-if</h3>
 			<p class="mb-2">Conditionally renders an element based on a boolean value.</p>
 			<div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto">
-				<pre><code>{`<div m-if="showContent">
+				<pre><code class="language-html">{`<div m-if="showContent">
   This content will only show when showContent is true.
 </div>`}</code></pre>
 			</div>
@@ -110,7 +110,7 @@ import PageLayout from "@/layouts/Base.astro";
 			<h3 class="font-semibold mb-2">m-bind</h3>
 			<p class="mb-2">Dynamically bind HTML attributes based on expressions.</p>
 			<div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto">
-				<pre><code>{`<!-- Regular syntax -->
+				<pre><code class="language-html">{`<!-- Regular syntax -->
 <input m-bind:placeholder="inputPlaceholder">
 <button m-bind:disabled="isDisabled">Submit</button>
 
@@ -128,7 +128,7 @@ import PageLayout from "@/layouts/Base.astro";
 			<h3 class="font-semibold mb-2">m-on / @</h3>
 			<p class="mb-2">Bind event listeners with multiple syntax options.</p>
 			<div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto">
-				<pre><code>{`<!-- Regular syntax -->
+				<pre><code class="language-html">{`<!-- Regular syntax -->
 <button m-on:click="handleClick">Click Me</button>
 
 <!-- Shorthand syntax -->
@@ -151,7 +151,7 @@ import PageLayout from "@/layouts/Base.astro";
 			<h3 class="font-semibold mb-2">m-for</h3>
 			<p class="mb-2">Render lists of items.</p>
 			<div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto">
-				<pre><code>{`
+				<pre><code class="language-html">{`
 <ul>
   <li m-for="item in items">{{ item.name }}</li>
 </ul>
@@ -174,7 +174,7 @@ import PageLayout from "@/layouts/Base.astro";
 		<h2 class="title mb-4 text-xl text-accent-two">Text Interpolation</h2>
 		<p class="mb-2">Use double curly braces to display reactive data in your templates.</p>
 		<div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto">
-			<pre><code>{`<p>Hello, {{ name }}!</p>`}</code></pre>
+			<pre><code class="language-html">{`<p>Hello, {{ name }}!</p>`}</code></pre>
 		</div>
 	</section>
 </PageLayout>

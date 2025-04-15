@@ -9,7 +9,7 @@ import PageLayout from "@/layouts/Base.astro";
 		<h2 class="title mb-4 text-xl text-accent-two">Installation</h2>
 		<p class="mb-4">Getting started with MiVue is simple. Just include the script in your HTML:</p>
 		<div class="mb-6 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto">
-			<pre><code>{`<script src="mivue.js"></script>`}</code></pre>
+			<pre><code class="language-html">{`<script src="mivue.js"></script>`}</code></pre>
 		</div>
 		<p>You can also use a CDN (coming soon) or install via npm (coming soon).</p>
 	</section>
@@ -18,7 +18,7 @@ import PageLayout from "@/layouts/Base.astro";
 		<h2 class="title mb-4 text-xl text-accent-two">Basic Usage</h2>
 		<p class="mb-4">Create a simple MiVue application with the following code:</p>
 		<div class="mb-6 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto">
-			<pre><code>{`<div id="app">
+			<pre><code class="language-html">{`<div id="app">
   <p>{{ message }}</p>
   <input m-model="message">
 </div>
@@ -59,7 +59,7 @@ import PageLayout from "@/layouts/Base.astro";
 			<h3 class="font-semibold mb-2">Methods</h3>
 			<p>Define methods to handle events and perform actions:</p>
 			<div class="mt-2 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto">
-				<pre><code>{`const app = new MiVue({
+				<pre><code class="language-javascript">{`const app = new MiVue({
   el: '#app',
   data: {
     count: 0
