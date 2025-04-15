@@ -1,0 +1,180 @@
+---
+import PageLayout from "@/layouts/Base.astro";
+---
+
+<PageLayout meta={{ title: "MiVue API Reference" }}>
+	<h1 class="title mb-6 text-2xl">API Reference</h1>
+	
+	<section class="mb-8">
+		<h2 class="title mb-4 text-xl text-accent-two">Instance Options</h2>
+		
+		<div class="mb-6 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto">
+			<pre><code>{`const app = new MiVue({
+  // Element to mount to
+  el: '#app',
+  
+  // Debug mode
+  debug: true,
+  
+  // Data properties (reactive)
+  data: {
+    message: 'Hello MiVue!',
+    count: 0
+  },
+  
+  // Methods
+  methods: {
+    increment() {
+      this.count++;
+    }
+  },
+  
+  // Computed properties
+  computed: {
+    doubleCount() {
+      return this.count * 2;
+    }
+  }
+});`}</code></pre>
+		</div>
+		
+		<h3 class="font-semibold mb-2 mt-4">Options Reference</h3>
+		<ul class="space-y-4">
+			<li>
+				<strong class="text-accent-one">el</strong>
+				<p class="mt-1">Type: <code>string | HTMLElement</code></p>
+				<p>The DOM element to mount the MiVue instance to. Can be a CSS selector string or an actual HTMLElement.</p>
+			</li>
+			<li>
+				<strong class="text-accent-one">data</strong>
+				<p class="mt-1">Type: <code>Object</code></p>
+				<p>The data object for the MiVue instance. Properties in this object become reactive.</p>
+			</li>
+			<li>
+				<strong class="text-accent-one">methods</strong>
+				<p class="mt-1">Type: <code>Object with function values</code></p>
+				<p>Methods to be mixed into the MiVue instance. These can be accessed in templates and other instance methods.</p>
+			</li>
+			<li>
+				<strong class="text-accent-one">computed</strong>
+				<p class="mt-1">Type: <code>Object with function values</code></p>
+				<p>Computed properties that are cached based on their dependencies. A computed property will only re-evaluate when some of its dependencies have changed.</p>
+			</li>
+			<li>
+				<strong class="text-accent-one">debug</strong>
+				<p class="mt-1">Type: <code>boolean</code></p>
+				<p>When set to true, enables debug mode with detailed logging.</p>
+			</li>
+		</ul>
+	</section>
+
+	<section class="mb-8">
+		<h2 class="title mb-4 text-xl text-accent-two">Directives</h2>
+		
+		<div class="mb-6">
+			<h3 class="font-semibold mb-2">m-model</h3>
+			<p class="mb-2">Creates two-way data binding on form elements.</p>
+			<div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto">
+				<pre><code>{`<!-- Text input -->
+<input type="text" m-model="message">
+
+<!-- Checkbox -->
+<input type="checkbox" m-model="isChecked">
+
+<!-- Radio buttons -->
+<input type="radio" m-model="selectedOption" value="option1">
+<input type="radio" m-model="selectedOption" value="option2">
+
+<!-- Select dropdown -->
+<select m-model="selected">
+  <option value="option1">Option 1</option>
+  <option value="option2">Option 2</option>
+</select>
+
+<!-- Textarea -->
+<textarea m-model="description"></textarea>`}</code></pre>
+			</div>
+		</div>
+		
+		<div class="mb-6">
+			<h3 class="font-semibold mb-2">m-if</h3>
+			<p class="mb-2">Conditionally renders an element based on a boolean value.</p>
+			<div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto">
+				<pre><code>{`<div m-if="showContent">
+  This content will only show when showContent is true.
+</div>`}</code></pre>
+			</div>
+		</div>
+		
+		<div class="mb-6">
+			<h3 class="font-semibold mb-2">m-bind</h3>
+			<p class="mb-2">Dynamically bind HTML attributes based on expressions.</p>
+			<div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto">
+				<pre><code>{`<!-- Regular syntax -->
+<input m-bind:placeholder="inputPlaceholder">
+<button m-bind:disabled="isDisabled">Submit</button>
+
+<!-- Shorthand syntax using ":" -->
+<img :src="imageUrl" :alt="imageDescription">
+<a :href="linkUrl">Visit Website</a>
+
+<!-- Expressions are supported -->
+<div :style="'color: ' + textColor">Colored Text</div>
+<progress :value="progress" :max="100"></progress>`}</code></pre>
+			</div>
+		</div>
+		
+		<div class="mb-6">
+			<h3 class="font-semibold mb-2">m-on / @</h3>
+			<p class="mb-2">Bind event listeners with multiple syntax options.</p>
+			<div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto">
+				<pre><code>{`<!-- Regular syntax -->
+<button m-on:click="handleClick">Click Me</button>
+
+<!-- Shorthand syntax -->
+<button @click="handleClick">Click Me</button>
+
+<!-- With parameters -->
+<button @click="increment(5)">Add 5</button>
+
+<!-- Using $event to access the original DOM event -->
+<input @input="updateValue($event)">
+
+<!-- Multiple event types -->
+<div @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
+  Hover over me
+</div>`}</code></pre>
+			</div>
+		</div>
+		
+		<div class="mb-6">
+			<h3 class="font-semibold mb-2">m-for</h3>
+			<p class="mb-2">Render lists of items.</p>
+			<div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto">
+				<pre><code>{`
+<ul>
+  <li m-for="item in items">{{ item.name }}</li>
+</ul>
+
+<div m-for="(item, index) in items">
+  {{ index }}: {{ item.name }}
+</div>
+
+<div m-for="todo in todos" :class="{'completed': todo.completed}">
+  <input type="checkbox" m-model="todo.completed">
+  <span>{{ todo.text }}</span>
+  <button @click="removeTodo(todo)">Delete</button>
+</div>
+`}</code></pre>
+			</div>
+		</div>
+	</section>
+
+	<section class="mb-8">
+		<h2 class="title mb-4 text-xl text-accent-two">Text Interpolation</h2>
+		<p class="mb-2">Use double curly braces to display reactive data in your templates.</p>
+		<div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto">
+			<pre><code>{`<p>Hello, {{ name }}!</p>`}</code></pre>
+		</div>
+	</section>
+</PageLayout>

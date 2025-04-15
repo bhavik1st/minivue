@@ -1,0 +1,86 @@
+---
+import PageLayout from "@/layouts/Base.astro";
+---
+
+<PageLayout meta={{ title: "Getting Started with MiVue" }}>
+	<h1 class="title mb-6 text-2xl">Getting Started with MiVue</h1>
+	
+	<section class="mb-8">
+		<h2 class="title mb-4 text-xl text-accent-two">Installation</h2>
+		<p class="mb-4">Getting started with MiVue is simple. Just include the script in your HTML:</p>
+		<div class="mb-6 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto">
+			<pre><code>{`<script src="mivue.js"></script>`}</code></pre>
+		</div>
+		<p>You can also use a CDN (coming soon) or install via npm (coming soon).</p>
+	</section>
+
+	<section class="mb-8">
+		<h2 class="title mb-4 text-xl text-accent-two">Basic Usage</h2>
+		<p class="mb-4">Create a simple MiVue application with the following code:</p>
+		<div class="mb-6 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto">
+			<pre><code>{`<div id="app">
+  <p>{{ message }}</p>
+  <input m-model="message">
+</div>
+
+<script>
+  const app = new MiVue({
+    el: '#app',
+    data: {
+      message: 'Hello MiVue!'
+    }
+  });
+</script>`}</code></pre>
+		</div>
+		<p>This creates a two-way binding between the input field and the paragraph text. When you type in the input, the paragraph text updates automatically.</p>
+	</section>
+
+	<section class="mb-8">
+		<h2 class="title mb-4 text-xl text-accent-two">Core Concepts</h2>
+		
+		<div class="mb-6">
+			<h3 class="font-semibold mb-2">Reactive Data</h3>
+			<p>MiVue makes your data reactive. When the data changes, the view updates automatically to reflect those changes.</p>
+		</div>
+		
+		<div class="mb-6">
+			<h3 class="font-semibold mb-2">Directives</h3>
+			<p>MiVue uses directives (prefixed with <code>m-</code>) to apply special behavior to your HTML elements:</p>
+			<ul class="list-disc pl-5 mt-2 space-y-2">
+				<li><code>m-model</code>: Creates two-way data binding</li>
+				<li><code>m-if</code>: Conditionally renders elements</li>
+				<li><code>m-bind</code> or <code>:</code>: Binds element attributes</li>
+				<li><code>m-on</code> or <code>@</code>: Attaches event listeners</li>
+				<li><code>m-for</code>: Renders lists of items</li>
+			</ul>
+		</div>
+		
+		<div class="mb-6">
+			<h3 class="font-semibold mb-2">Methods</h3>
+			<p>Define methods to handle events and perform actions:</p>
+			<div class="mt-2 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto">
+				<pre><code>{`const app = new MiVue({
+  el: '#app',
+  data: {
+    count: 0
+  },
+  methods: {
+    increment() {
+      this.count++;
+    }
+  }
+});`}</code></pre>
+			</div>
+		</div>
+	</section>
+
+	<section class="mb-8">
+		<h2 class="title mb-4 text-xl text-accent-two">Next Steps</h2>
+		<p>Now that you've learned the basics, explore the following resources:</p>
+		<ul class="list-disc pl-5 mt-2 space-y-2">
+			<li><a href="/guides/" class="text-accent-one hover:underline">Guides</a> - Detailed tutorials on using MiVue features</li>
+			<li><a href="/api/" class="text-accent-one hover:underline">API Reference</a> - Complete documentation of MiVue's API</li>
+			<li><a href="/examples/" class="text-accent-one hover:underline">Examples</a> - See MiVue in action with practical examples</li>
+		</ul>
+	</section>
+</PageLayout>

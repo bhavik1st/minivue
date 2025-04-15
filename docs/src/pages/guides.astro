@@ -1,0 +1,276 @@
+---
+import PageLayout from "@/layouts/Base.astro";
+
+const listRenderingExample = `<!-- HTML -->
+<div id="app">
+  <ul>
+    <li m-for="item in items">{{ item.name }}</li>
+  </ul>
+</div>
+
+<!-- JavaScript -->
+<script>
+  const app = new MiVue({
+    el: '#app',
+    data: {
+      items: [
+        { name: 'Item 1' },
+        { name: 'Item 2' },
+        { name: 'Item 3' }
+      ]
+    }
+  });
+</script>`;
+
+const indexUsageExample = `<div m-for="(item, index) in items">
+  {{ index + 1 }}. {{ item.name }}
+</div>`;
+
+const eventHandlingExample = `<!-- HTML -->
+<div id="app">
+  <button @click="sayHello">Say Hello</button>
+</div>
+
+<!-- JavaScript -->
+<script>
+  const app = new MiVue({
+    el: '#app',
+    methods: {
+      sayHello() {
+        alert('Hello!');
+      }
+    }
+  });
+</script>`;
+
+const eventArgumentsExample = `<!-- HTML -->
+<div id="app">
+  <button @click="greet('World')">Greet World</button>
+  <button @click="greet('MiVue')">Greet MiVue</button>
+</div>`;
+
+const eventAccessExample = `<!-- HTML -->
+<div id="app">
+  <button @click="warn('Form cannot be submitted yet.', $event)">
+    Submit
+  </button>
+</div>
+
+<!-- JavaScript -->
+<script>
+  const app = new MiVue({
+    el: '#app',
+    methods: {
+      warn(message, event) {
+        // Now we have access to the native event
+        if (event) {
+          event.preventDefault();
+        }
+        alert(message);
+      }
+    }
+  });
+</script>`;
+
+const counterExample = `<!-- HTML -->
+<div id="app">
+  <p>Count: {{ count }}</p>
+  <button @click="increment">+</button>
+  <button @click="decrement">-</button>
+  <button @click="reset">Reset</button>
+</div>
+
+<!-- JavaScript -->
+<script>
+  const app = new MiVue({
+    el: '#app',
+    data: {
+      count: 0
+    },
+    methods: {
+      increment() {
+        this.count++;
+      },
+      decrement() {
+        if (this.count > 0) {
+          this.count--;
+        }
+      },
+      reset() {
+        this.count = 0;
+      }
+    }
+  });
+</script>`;
+
+// Define raw HTML strings for code examples
+const reactiveDataExample = "const app = new MiVue({\n  el: '#app',\n  data: {\n    message: 'Hello',\n    count: 0\n  }\n});\n\n// Later in your code\napp.message = 'Hello World'; // This will update the DOM automatically";
+
+const computedPropertiesExample = "const app = new MiVue({\n  el: '#app',\n  data: {\n    firstName: 'John',\n    lastName: 'Doe'\n  },\n  computed: {\n    fullName() {\n      return this.firstName + ' ' + this.lastName;\n    }\n  }\n});\n\n// In your HTML\n// <p>{{ fullName }}</p> will display \"John Doe\"\n\n// If you change firstName or lastName, fullName will update automatically\napp.firstName = 'Jane'; // Now fullName will be \"Jane Doe\"";
+
+const formBindingExample = "<div id=\"app\">\n  <input type=\"text\" m-model=\"username\">\n  <p>Hello, {{ username }}</p>\n</div>\n\n<!-- JavaScript -->\n<script>\n  const app = new MiVue({\n    el: '#app',\n    data: {\n      username: ''\n    }\n  });\n</script>";
+
+const checkboxExample = "<!-- Single checkbox, bound to a boolean value -->\n<input type=\"checkbox\" m-model=\"isAgree\">\n<label>I agree to the terms</label>\n\n<!-- Multiple checkboxes, bound to an array -->\n<input type=\"checkbox\" m-model=\"selectedFruits\" value=\"apple\">\n<label>Apple</label>\n<input type=\"checkbox\" m-model=\"selectedFruits\" value=\"banana\">\n<label>Banana</label>\n<input type=\"checkbox\" m-model=\"selectedFruits\" value=\"orange\">\n<label>Orange</label>\n\n<script>\n  const app = new MiVue({\n    el: '#app',\n    data: {\n      isAgree: false,\n      selectedFruits: []\n    }\n  });\n</script>";
+
+const radioButtonsExample = "<input type=\"radio\" m-model=\"gender\" value=\"male\">\n<label>Male</label>\n<input type=\"radio\" m-model=\"gender\" value=\"female\">\n<label>Female</label>\n<input type=\"radio\" m-model=\"gender\" value=\"other\">\n<label>Other</label>\n\n<script>\n  const app = new MiVue({\n    el: '#app',\n    data: {\n      gender: ''\n    }\n  });\n</script>";
+
+const selectDropdownExample = "<select m-model=\"selectedCountry\">\n  <option value=\"\">Select a country</option>\n  <option value=\"us\">United States</option>\n  <option value=\"ca\">Canada</option>\n  <option value=\"uk\">United Kingdom</option>\n</select>\n\n<script>\n  const app = new MiVue({\n    el: '#app',\n    data: {\n      selectedCountry: ''\n    }\n  });\n</script>";
+
+const todoListHTML = "<!-- HTML -->\n<div id=\"app\">\n  <form @submit.prevent=\"addTodo\">\n    <input type=\"text\" m-model=\"newTodo\" placeholder=\"Add a todo\">\n    <button type=\"submit\">Add</button>\n  </form>\n  \n  <ul>\n    <li m-for=\"(todo, index) in todos\">\n      <input type=\"checkbox\" m-model=\"todo.completed\">\n      <span class={todo.completed ? 'completed' : ''}>{{ todo.title }}</span>\n      <button @click=\"removeTodo(index)\">Delete</button>\n    </li>\n  </ul>\n</div>";
+
+const todoListStyle = "<style>\n  .completed {\n    text-decoration: line-through;\n    color: gray;\n  }\n</style>";
+
+const todoListScript = "<!-- JavaScript -->\n<script>\n  const app = new MiVue({\n    el: '#app',\n    data: {\n      newTodo: '',\n      todos: [\n        { title: 'Learn MiVue', completed: false },\n        { title: 'Build an app', completed: false }\n      ]\n    },\n    methods: {\n      addTodo() {\n        if (this.newTodo.trim()) {\n          this.todos.push({ title: this.newTodo, completed: false });\n          this.newTodo = '';\n        }\n      },\n      removeTodo(index) {\n        this.todos.splice(index, 1);\n      }\n    }\n  });\n</script>";
+
+const jsexample = `const app = new MiVue({
+  el: '#app',
+  data: {
+    isAgree: false,
+    selectedFruits: []
+  }
+});`
+
+---
+
+<PageLayout meta={{ title: "MiVue Guides" }}>
+	<h1 class="title mb-6 text-2xl">Guides</h1>
+	
+	<div class="grid grid-cols-1 gap-8 sm:grid-cols-2 mb-8">
+		<div class="p-6 border border-gray-200 dark:border-gray-700 rounded-lg hover:shadow-md transition-shadow">
+			<h3 class="text-lg font-semibold mb-2">Reactive Data</h3>
+			<p class="mb-4">Learn how MiVue's reactivity system works and how to leverage it effectively.</p>
+			<a href="#reactive-data" class="text-accent-one hover:underline">Read more →</a>
+		</div>
+		<div class="p-6 border border-gray-200 dark:border-gray-700 rounded-lg hover:shadow-md transition-shadow">
+			<h3 class="text-lg font-semibold mb-2">Form Handling</h3>
+			<p class="mb-4">Master form handling with MiVue's two-way data binding.</p>
+			<a href="#form-handling" class="text-accent-one hover:underline">Read more →</a>
+		</div>
+		<div class="p-6 border border-gray-200 dark:border-gray-700 rounded-lg hover:shadow-md transition-shadow">
+			<h3 class="text-lg font-semibold mb-2">List Rendering</h3>
+			<p class="mb-4">Learn how to efficiently render and manage lists with m-for.</p>
+			<a href="#list-rendering" class="text-accent-one hover:underline">Read more →</a>
+		</div>
+		<div class="p-6 border border-gray-200 dark:border-gray-700 rounded-lg hover:shadow-md transition-shadow">
+			<h3 class="text-lg font-semibold mb-2">Event Handling</h3>
+			<p class="mb-4">Understand how to handle user interactions with events.</p>
+			<a href="#event-handling" class="text-accent-one hover:underline">Read more →</a>
+		</div>
+	</div>
+
+	<section id="reactive-data" class="mb-12 pt-4">
+		<h2 class="title mb-4 text-xl text-accent-two">Reactive Data</h2>
+		
+		<p class="mb-4">MiVue's reactivity system automatically updates the DOM when your data changes. This guide explains how it works and how to use it effectively.</p>
+		
+		<h3 class="font-semibold mb-2 mt-6">How Reactivity Works</h3>
+		<p class="mb-4">When you create a MiVue instance, it walks through all the properties in your data object and converts them to getter/setter pairs using JavaScript's Object.defineProperty. These getters/setters allow MiVue to track when properties are accessed or modified.</p>
+		
+		<div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto mb-6">
+			<pre><code class="language-javascript">{reactiveDataExample}</code></pre>
+		</div>
+		
+		<h3 class="font-semibold mb-2 mt-6">Computed Properties</h3>
+		<p class="mb-4">Computed properties are derived values that depend on other reactive properties. They are cached based on their dependencies and only re-evaluate when needed.</p>
+		
+		<div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto mb-6">
+			<pre><code class="language-javascript">{computedPropertiesExample}</code></pre>
+		</div>
+		
+		<h3 class="font-semibold mb-2 mt-6">Best Practices</h3>
+		<ul class="list-disc pl-5 space-y-2">
+			<li>Initialize all reactive properties in the data object, even if with empty values.</li>
+			<li>Use computed properties for any value that depends on other data.</li>
+			<li>Avoid directly manipulating the DOM; let MiVue's reactivity system handle it.</li>
+			<li>For complex calculations, consider using computed properties with caching.</li>
+		</ul>
+	</section>
+
+	<section id="form-handling" class="mb-12 pt-4">
+		<h2 class="title mb-4 text-xl text-accent-two">Form Handling</h2>
+		
+		<p class="mb-4">MiVue makes form handling easy with its two-way data binding using the <code>m-model</code> directive.</p>
+		
+		<h3 class="font-semibold mb-2 mt-6">Basic Form Binding</h3>
+		<p class="mb-4">The <code>m-model</code> directive creates a two-way binding between form inputs and your data model:</p>
+		
+		<div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto mb-6">
+			<pre><code class="language-html">{formBindingExample}</code></pre>
+		</div>
+		
+		<h3 class="font-semibold mb-2 mt-6">Different Input Types</h3>
+		<p class="mb-4">MiVue's <code>m-model</code> works with various form elements:</p>
+		
+		<h4 class="font-medium mt-4 mb-2">Checkboxes</h4>
+		<div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto mb-4">
+			<pre><code class="language-html">{checkboxExample}</code></pre>
+		</div>
+		
+		<div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto mb-4">
+			<pre><code class="language-javascript">{jsexample}</code></pre>
+		</div>
+		
+		<h4 class="font-medium mt-4 mb-2">Radio Buttons</h4>
+		<div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto mb-4">
+			<pre><code class="language-html">{radioButtonsExample}</code></pre>
+		</div>
+		
+		<h4 class="font-medium mt-4 mb-2">Select Dropdowns</h4>
+		<div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto mb-4">
+			<pre><code class="language-html">{selectDropdownExample}</code></pre>
+		</div>
+	</section>
+
+	<section id="list-rendering" class="mb-12 pt-4">
+		<h2 class="title mb-4 text-xl text-accent-two">List Rendering</h2>
+		
+		<p class="mb-4">The <code>m-for</code> directive allows you to render lists of items efficiently.</p>
+		
+		<h3 class="font-semibold mb-2 mt-6">Basic Usage</h3>
+		<div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto mb-6">
+			<pre><code>{listRenderingExample}</code></pre>
+		</div>
+		
+		<h3 class="font-semibold mb-2 mt-6">Using the Index</h3>
+		<p class="mb-4">You can access the current index in the loop:</p>
+		<div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto mb-6">
+			<pre><code>{indexUsageExample}</code></pre>
+		</div>
+		
+		<h3 class="font-semibold mb-2 mt-6">Todo List Example</h3>
+		<p class="mb-4">A more complete example combining <code>m-for</code> with other directives:</p>
+		<div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto mb-6">
+			<pre><code class="language-html">{todoListHTML}
+{todoListStyle}
+{todoListScript}</code></pre>
+		</div>
+	</section>
+
+	<section id="event-handling" class="mb-12 pt-4">
+		<h2 class="title mb-4 text-xl text-accent-two">Event Handling</h2>
+		
+		<p class="mb-4">MiVue provides a straightforward way to listen to DOM events and trigger methods when those events occur.</p>
+		
+		<h3 class="font-semibold mb-2 mt-6">Basic Event Handling</h3>
+		<div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto mb-6">
+			<pre><code>{eventHandlingExample}</code></pre>
+		</div>
+		
+		<h3 class="font-semibold mb-2 mt-6">Passing Arguments</h3>
+		<div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto mb-6">
+			<pre><code>{eventArgumentsExample}</code></pre>
+		</div>
+		
+		<h3 class="font-semibold mb-2 mt-6">Accessing the Event Object</h3>
+		<p class="mb-4">Use <code>$event</code> to access the native DOM event:</p>
+		<div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto mb-6">
+			<pre><code class="language-html">{eventAccessExample}</code></pre>
+		</div>
+		
+		<h3 class="font-semibold mb-2 mt-6">Counter Example</h3>
+		<p class="mb-4">A simple counter application demonstrating event handling:</p>
+		<div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto mb-6">
+			<pre><code class="language-html">{counterExample}</code></pre>
+		</div>
+	</section>
+</PageLayout>

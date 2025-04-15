@@ -1,0 +1,198 @@
+---
+import PageLayout from "@/layouts/Base.astro";
+---
+
+<PageLayout meta={{ title: "MiVue Examples" }}>
+	<h1 class="title mb-6 text-2xl">Examples</h1>
+	
+	<div class="grid grid-cols-1 gap-8 sm:grid-cols-2 mb-8">
+		<div class="p-6 border border-gray-200 dark:border-gray-700 rounded-lg hover:shadow-md transition-shadow">
+			<h3 class="text-lg font-semibold mb-2">Todo App</h3>
+			<p class="mb-4">A simple todo application demonstrating reactive lists and form handling.</p>
+			<a href="#todo-app" class="text-accent-one hover:underline">View example u2192</a>
+		</div>
+		<div class="p-6 border border-gray-200 dark:border-gray-700 rounded-lg hover:shadow-md transition-shadow">
+			<h3 class="text-lg font-semibold mb-2">Counter</h3>
+			<p class="mb-4">A basic counter showing event handling and reactive data.</p>
+			<a href="#counter" class="text-accent-one hover:underline">View example u2192</a>
+		</div>
+	</div>
+
+	<section id="todo-app" class="mb-12 pt-4">
+		<h2 class="title mb-4 text-xl text-accent-two">Todo App</h2>
+		
+		<p class="mb-4">This example demonstrates a simple todo application using MiVue's reactivity, list rendering, and form handling.</p>
+		
+		<div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto mb-6">
+			<pre><code>{`<!-- HTML -->
+<div id="app">
+  <h2>Todo App</h2>
+  
+  <form @submit.prevent="addTodo">
+    <input 
+      type="text" 
+      m-model="newTodo" 
+      placeholder="What needs to be done?">
+    <button type="submit">Add</button>
+  </form>
+  
+  <ul>
+    <li m-for="(todo, index) in todos">
+      <input 
+        type="checkbox" 
+        m-model="todo.completed">
+      <span :class="{ 'completed': todo.completed }">
+        {{ todo.text }}
+      </span>
+      <button @click="removeTodo(index)">×</button>
+    </li>
+  </ul>
+  
+  <div>
+    <span>{{ remainingCount }} items left</span>
+    <button @click="clearCompleted" m-if="completedCount > 0">
+      Clear completed ({{ completedCount }})
+    </button>
+  </div>
+</div>
+
+<style>
+  .completed {
+    text-decoration: line-through;
+    color: #999;
+  }
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  li {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+  }
+  button {
+    margin-left: 10px;
+  }
+</style>
+
+<script>
+  const app = new MiVue({
+    el: '#app',
+    data: {
+      newTodo: '',
+      todos: [
+        { text: 'Learn MiVue', completed: false },
+        { text: 'Build a todo app', completed: true },
+        { text: 'Share with friends', completed: false }
+      ]
+    },
+    computed: {
+      remainingCount() {
+        return this.todos.filter(todo => !todo.completed).length;
+      },
+      completedCount() {
+        return this.todos.filter(todo => todo.completed).length;
+      }
+    },
+    methods: {
+      addTodo() {
+        const text = this.newTodo.trim();
+        if (text) {
+          this.todos.push({ text, completed: false });
+          this.newTodo = '';
+        }
+      },
+      removeTodo(index) {
+        this.todos.splice(index, 1);
+      },
+      clearCompleted() {
+        this.todos = this.todos.filter(todo => !todo.completed);
+      }
+    }
+  });
+</script>`}</code></pre>
+		</div>
+	</section>
+
+	<section id="counter" class="mb-12 pt-4">
+		<h2 class="title mb-4 text-xl text-accent-two">Counter</h2>
+		
+		<p class="mb-4">A simple counter application demonstrating event handling and reactive data binding.</p>
+		
+		<div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-x-auto mb-6">
+			<pre><code>{`<!-- HTML -->
+<div id="app">
+  <h2>Counter</h2>
+  
+  <div class="counter">
+    <button @click="decrement" :disabled="count <= 0">-</button>
+    <span class="count">{{ count }}</span>
+    <button @click="increment">+</button>
+  </div>
+  
+  <div class="controls">
+    <button @click="reset">Reset</button>
+    <button @click="increment(5)">Add 5</button>
+    <button @click="decrement(5)" :disabled="count < 5">Subtract 5</button>
+  </div>
+  
+  <p>Count squared: <strong>{{ countSquared }}</strong></p>
+  <p m-if="count >= 10">You've reached 10 or more!</p>
+</div>
+
+<style>
+  .counter {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+  }
+  .count {
+    font-size: 24px;
+    margin: 0 15px;
+    min-width: 40px;
+    text-align: center;
+  }
+  .controls {
+    margin-bottom: 20px;
+  }
+  button {
+    margin-right: 10px;
+    padding: 5px 10px;
+  }
+  button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+</style>
+
+<script>
+  const app = new MiVue({
+    el: '#app',
+    data: {
+      count: 0
+    },
+    computed: {
+      countSquared() {
+        return this.count * this.count;
+      }
+    },
+    methods: {
+      increment(amount = 1) {
+        this.count += amount;
+      },
+      decrement(amount = 1) {
+        if (this.count >= amount) {
+          this.count -= amount;
+        } else {
+          this.count = 0;
+        }
+      },
+      reset() {
+        this.count = 0;
+      }
+    }
+  });
+</script>`}</code></pre>
+		</div>
+	</section>
+</PageLayout>
